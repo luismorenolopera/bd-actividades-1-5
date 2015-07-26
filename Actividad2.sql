@@ -292,7 +292,7 @@ WHERE MONTH(dtmFechaNac_Emp) >= 1 AND MONTH(dtmFechaNac_Emp) <= 6
 -- 28 OK
 
 SELECT * FROM tblEMPleados
-WHERE
+WHERE intCargo_Emp BETWEEN 5 AND 20
 
 -- 29 OK
 
