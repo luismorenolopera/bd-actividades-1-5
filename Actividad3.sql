@@ -52,6 +52,7 @@ ELSE
 	SELECT dato / dato2 FROM numeros WHERE id_Num = 2
 
 -- 3 OK
+DROP FUNCTION f_promedio
 
 CREATE FUNCTION dbo.f_promedio
 (
@@ -62,8 +63,6 @@ AS
 BEGIN 
 	RETURN (@valor1 + @valor2 + @valor3) / 3
 END
-
-DROP FUNCTION f_promedio
 
 SELECT id_Num, dato, dato2, dbo.f_promedio(id_Num, dato, dato2) AS Promedio
 FROM numeros
@@ -141,7 +140,7 @@ SET @PROM = (@NOTA1 + @NOTA2 + @NOTA3 + @NOTA4) / 4
 
 PRINT(@PROM)
 
--- 11
+-- 11 OK
 
 
 CREATE TABLE estudiantes (
@@ -159,3 +158,46 @@ VALUES
 
 SELECT * FROM estudiantes
 
+SELECT AVG(nota1 + nota2) AS [Promedio General] FROM estudiantes
+
+-- 12
+
+CREATE TABLE empleados (
+	codigo INT PRIMARY KEY NOT NULL,
+	nombre NVARCHAR(30),
+	peso FLOAT,
+	anio_nacimiento DATE,
+	altura FLOAT
+)
+
+INSERT INTO empleados
+(codigo, nombre, peso, anio_nacimiento, altura)
+VALUES
+(101, 'Carlos', 80, '1983', 1.90),
+(102, 'Maria', 60, '1981', 1.70)
+
+SELECT * FROM empleados
+
+DECLARE @peso FLOAT
+SELECT @peso = peso FROM empleados WHERE codigo = 102
+
+DECLARE @AL FLOAT
+SELECT @AL = altura FROM empleados WHERE codigo = 102
+
+DECLARE @IMC FLOAT
+SET @IMC = @peso/ (@AL * @AL)
+
+PRINT(@IMC)
+
+IF @IMC < 18.5
+	PRINT('bajo peso')
+ELSE IF @IMC >= 18.5 AND @IMC < 25
+	PRINT('normal')
+ELSE IF @IMC >= 25 AND @IMC < 30
+	PRINT('pre obesidad')
+ELSE IF @IMC >= 30 AND @IMC < 35
+	PRINT('obesidad 1')
+ELSE IF @IMC >= 35 AND @IMC < 40
+	PRINT('obesidad 2')
+ELSE if @IMC > 40
+	PRINT('obesidad 3')
