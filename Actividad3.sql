@@ -160,7 +160,7 @@ SELECT * FROM estudiantes
 
 SELECT AVG(nota1 + nota2) AS [Promedio General] FROM estudiantes
 
--- 12
+-- 12 OK
 
 CREATE TABLE empleados (
 	codigo INT PRIMARY KEY NOT NULL,

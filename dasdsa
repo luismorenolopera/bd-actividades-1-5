@@ -1,0 +1,796 @@
+[33mcommit 6cdd304cb3bef88c9c6533c3079250e0949e34df[m
+Author: Luis Moreno <l.david1929@gmail.com>
+Date:   Sun Jul 26 03:10:48 2015 -0500
+
+    correccion en actividad 2
+
+[1mdiff --git a/Actividad2.sql b/Actividad2.sql[m
+[1mindex f8ee197..da27e33 100644[m
+[1m--- a/Actividad2.sql[m
+[1m+++ b/Actividad2.sql[m
+[36m@@ -292,7 +292,7 @@[m [mWHERE MONTH(dtmFechaNac_Emp) >= 1 AND MONTH(dtmFechaNac_Emp) <= 6[m
+ -- 28 OK[m
+ [m
+ SELECT * FROM tblEMPleados[m
+[31m-WHERE[m
+[32m+[m[32mWHERE intCargo_Emp BETWEEN 5 AND 20[m
+ [m
+ -- 29 OK[m
+ [m
+
+[33mcommit fc81ee6a7445ed268ee8fb0dbef22b4647bff1f0[m
+Author: Luis Moreno <l.david1929@gmail.com>
+Date:   Sun Jul 26 03:04:36 2015 -0500
+
+    actividad 3 completa
+
+[1mdiff --git a/Actividad2.sql b/Actividad2.sql[m
+[1mindex da27e33..f8ee197 100644[m
+[1m--- a/Actividad2.sql[m
+[1m+++ b/Actividad2.sql[m
+[36m@@ -292,7 +292,7 @@[m [mWHERE MONTH(dtmFechaNac_Emp) >= 1 AND MONTH(dtmFechaNac_Emp) <= 6[m
+ -- 28 OK[m
+ [m
+ SELECT * FROM tblEMPleados[m
+[31m-WHERE intCargo_Emp BETWEEN 5 AND 20[m
+[32m+[m[32mWHERE[m
+ [m
+ -- 29 OK[m
+ [m
+[1mdiff --git a/Actividad3.sql b/Actividad3.sql[m
+[1mindex 809509c..03e271f 100644[m
+[1m--- a/Actividad3.sql[m
+[1m+++ b/Actividad3.sql[m
+[36m@@ -52,6 +52,7 @@[m [mELSE[m
+ 	SELECT dato / dato2 FROM numeros WHERE id_Num = 2[m
+ [m
+ -- 3 OK[m
+[32m+[m[32mDROP FUNCTION f_promedio[m
+ [m
+ CREATE FUNCTION dbo.f_promedio[m
+ ([m
+[36m@@ -63,8 +64,6 @@[m [mBEGIN[m
+ 	RETURN (@valor1 + @valor2 + @valor3) / 3[m
+ END[m
+ [m
+[31m-DROP FUNCTION f_promedio[m
+[31m-[m
+ SELECT id_Num, dato, dato2, dbo.f_promedio(id_Num, dato, dato2) AS Promedio[m
+ FROM numeros[m
+ [m
+[36m@@ -141,7 +140,7 @@[m [mSET @PROM = (@NOTA1 + @NOTA2 + @NOTA3 + @NOTA4) / 4[m
+ [m
+ PRINT(@PROM)[m
+ [m
+[31m--- 11[m
+[32m+[m[32m-- 11 OK[m
+ [m
+ [m
+ CREATE TABLE estudiantes ([m
+[36m@@ -159,3 +158,46 @@[m [mVALUES[m
+ [m
+ SELECT * FROM estudiantes[m
+ [m
+[32m+[m[32mSELECT AVG(nota1 + nota2) AS [Promedio General] FROM estudiantes[m
+[32m+[m
+[32m+[m[32m-- 12[m
+[32m+[m
+[32m+[m[32mCREATE TABLE empleados ([m
+[32m+[m	[32mcodigo INT PRIMARY KEY NOT NULL,[m
+[32m+[m	[32mnombre NVARCHAR(30),[m
+[32m+[m	[32mpeso FLOAT,[m
+[32m+[m	[32manio_nacimiento DATE,[m
+[32m+[m	[32maltura FLOAT[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32mINSERT INTO empleados[m
+[32m+[m[32m(codigo, nombre, peso, anio_nacimiento, altura)[m
+[32m+[m[32mVALUES[m
+[32m+[m[32m(101, 'Carlos', 80, '1983', 1.90),[m
+[32m+[m[32m(102, 'Maria', 60, '1981', 1.70)[m
+[32m+[m
+[32m+[m[32mSELECT * FROM empleados[m
+[32m+[m
+[32m+[m[32mDECLARE @peso FLOAT[m
+[32m+[m[32mSELECT @peso = peso FROM empleados WHERE codigo = 102[m
+[32m+[m
+[32m+[m[32mDECLARE @AL FLOAT[m
+[32m+[m[32mSELECT @AL = altura FROM empleados WHERE codigo = 102[m
+[32m+[m
+[32m+[m[32mDECLARE @IMC FLOAT[m
+[32m+[m[32mSET @IMC = @peso/ (@AL * @AL)[m
+[32m+[m
+[32m+[m[32mPRINT(@IMC)[m
+[32m+[m
+[32m+[m[32mIF @IMC < 18.5[m
+[32m+[m	[32mPRINT('bajo peso')[m
+[32m+[m[32mELSE IF @IMC >= 18.5 AND @IMC < 25[m
+[32m+[m	[32mPRINT('normal')[m
+[32m+[m[32mELSE IF @IMC >= 25 AND @IMC < 30[m
+[32m+[m	[32mPRINT('pre obesidad')[m
+[32m+[m[32mELSE IF @IMC >= 30 AND @IMC < 35[m
+[32m+[m	[32mPRINT('obesidad 1')[m
+[32m+[m[32mELSE IF @IMC >= 35 AND @IMC < 40[m
+[32m+[m	[32mPRINT('obesidad 2')[m
+[32m+[m[32mELSE if @IMC > 40[m
+[32m+[m	[32mPRINT('obesidad 3')[m
+\ No newline at end of file[m
+[1mdiff --git a/Actividad4.sql b/Actividad4.sql[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e69de29[m
+
+[33mcommit 944e550258af234ba5b1d3dfd1aa8eff749695bf[m
+Author: Luis Moreno <l.david1929@gmail.com>
+Date:   Wed Jul 22 19:34:07 2015 -0500
+
+    first commit
+
+[1mdiff --git a/Actividad1.sql b/Actividad1.sql[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9c07aa3[m
+[1m--- /dev/null[m
+[1m+++ b/Actividad1.sql[m
+[36m@@ -0,0 +1,109 @@[m
+[32m+[m[32m-- usar bd[m
+[32m+[m
+[32m+[m[32muse Empresaxy[m
+[32m+[m
+[32m+[m[32m-- crear bd[m
+[32m+[m[32mcreate database Empresaxy[m
+[32m+[m
+[32m+[m[32m-- crear tablas[m
+[32m+[m[32mcreate table tbl_producto([m
+[32m+[m	[32mcodigoProducto int identity(1,1) primary key,[m
+[32m+[m	[32mnombre_producto nvarchar(30) not null,[m
+[32m+[m	[32mvalor money not null[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32mcreate table tbl_cliente([m
+[32m+[m	[32mcedula nvarchar(20) primary key not null,[m
+[32m+[m	[32mnombre nvarchar(30) not null,[m
+[32m+[m	[32mapellido nvarchar(30) not null,[m
+[32m+[m	[32mtelefono nvarchar(15),[m
+[32m+[m	[32mingresos money[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32mcreate table tbl_factura([m
+[32m+[m	[32midFactura int identity(1, 1) primary key,[m
+[32m+[m	[32mcodigoProducto int foreign key references tbl_producto(codigoProducto),[m
+[32m+[m	[32mcedula nvarchar(20) foreign key references tbl_cliente(cedula),[m
+[32m+[m	[32mcantidad int[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32m-- borrar tablas[m
+[32m+[m[32mdrop table tbl_producto[m
+[32m+[m[32mdrop table tbl_cliente[m
+[32m+[m[32mdrop table tbl_factura[m
+[32m+[m
+[32m+[m[32m-- consultas[m
+[32m+[m[32mselect * from tbl_producto[m
+[32m+[m[32mselect * from tbl_cliente[m
+[32m+[m[32mselect * from tbl_factura[m
+[32m+[m
+[32m+[m[32m-- borrar[m
+[32m+[m[32mdelete from tbl_producto[m
+[32m+[m[32mwhere nombre_producto='Banano';[m
+[32m+[m
+[32m+[m[32m-- ingresar productos[m
+[32m+[m[32minsert into tbl_producto[m
+[32m+[m[32m(nombre_producto, valor)[m
+[32m+[m[32mvalues[m
+[32m+[m[32m('Queso', 2000),[m
+[32m+[m[32m('Leche', 2000),[m
+[32m+[m[32m('Arroz', 1700),[m
+[32m+[m[32m('Salchicha', 2500),[m
+[32m+[m[32m('Galletas', 1500),[m
+[32m+[m[32m('Sopa', 3000),[m
+[32m+[m[32m('Frijoles', 3000),[m
+[32m+[m[32m('Cerdo', 5000),[m
+[32m+[m[32m('Res', 4000),[m
+[32m+[m[32m('Pescado', 8000),[m
+[32m+[m[32m('Huevo', 300),[m
+[32m+[m[32m('Yogurt', 1000),[m
+[32m+[m[32m('Cafe', 2000),[m
+[32m+[m[32m('Manzana', 1000),[m
+[32m+[m[32m('Pera', 1000),[m
+[32m+[m[32m('Uvas', 3000),[m
+[32m+[m[32m('Piña', 2000),[m
+[32m+[m[32m('Limon', 500),[m
+[32m+[m[32m('Banano', 100),[m
+[32m+[m[32m('Zanahoria', 300),[m
+[32m+[m[32m('Vino', 10000)[m
+[32m+[m
+[32m+[m[32m-- ingresar clientes[m
+[32m+[m[32minsert into tbl_cliente[m
+[32m+[m[32m(cedula, nombre, apellido, telefono, ingresos)[m
+[32m+[m[32mvalues[m
+[32m+[m[32m('23124121', 'Luis', 'Moreno', '213-12-11', 1430000),[m
+[32m+[m[32m('23124122', 'Daniel', 'Osorio', '213-12-12', 2010000),[m
+[32m+[m[32m('23124123', 'Alexis', 'Incapie', '213-12-13', 1430000),[m
+[32m+[m[32m('23124124', 'Elsa', 'Mesa', '213-12-14', 200000),[m
+[32m+[m[32m('23124125', 'Elvira', 'Naranjo', '213-12-15', 200000),[m
+[32m+[m[32m('23124126', 'Emilia', 'Incapie', '213-12-16', 1430000),[m
+[32m+[m[32m('23124127', 'Emilio', 'Mesa', '213-12-17', 2210000),[m
+[32m+[m[32m('23124128', 'Ema', 'Naranjo', '213-12-18', 2410000),[m
+[32m+[m[32m('23124129', 'Emanuel', 'Incapie', '213-12-19', 2300000),[m
+[32m+[m[32m('231241210', 'Encarnación', 'Mesa', '213-12-20', 1200000),[m
+[32m+[m[32m('231241211', 'Enrique', 'Naranjo', '213-12-21', 500000),[m
+[32m+[m[32m('231241212', 'Eric', 'Palacios', '213-12-22', 500000),[m
+[32m+[m[32m('231241213', 'Erica', 'Mosquera', '213-12-23', 400000),[m
+[32m+[m[32m('231241214', 'Ernesto', 'Palacios', '213-12-24', 800000),[m
+[32m+[m[32m('231241215', 'Esmeralda', 'Mosquera', '213-12-25', 1000000),[m
+[32m+[m[32m('231241216', 'Esperanza', 'Palacios', '213-12-26', 2200000),[m
+[32m+[m[32m('231241217', 'Eufemio', 'Mosquera', '213-12-27', 5000000),[m
+[32m+[m[32m('231241218', 'Eulalia', 'Perez', '213-12-28', 9800000),[m
+[32m+[m[32m('231241219', 'Eva', 'Rivera', '213-12-29', 1000000),[m
+[32m+[m[32m('231241220', 'Ezequiel', 'Tabares', '213-12-30', 1000000)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m-- ingresar facturas[m
+[32m+[m[32minsert into tbl_factura[m
+[32m+[m[32m(codigoProducto, cedula, cantidad)[m
+[32m+[m[32mvalues[m
+[32m+[m[32m(2, '23124123', 2),[m
+[32m+[m[32m(3, '23124124', 3),[m
+[32m+[m[32m(4, '23124125', 4),[m
+[32m+[m[32m(5, '23124125', 5),[m
+[32m+[m[32m(6, '23124126', 6),[m
+[32m+[m[32m(7, '23124127', 7),[m
+[32m+[m[32m(8, '23124128', 8),[m
+[32m+[m[32m(9, '23124129', 9),[m
+[32m+[m[32m(10, '231241215', 10),[m
+[32m+[m[32m(11, '231241220', 11)[m
+\ No newline at end of file[m
+[1mdiff --git a/Actividad1_2.sql b/Actividad1_2.sql[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b6e07e9[m
+[1m--- /dev/null[m
+[1m+++ b/Actividad1_2.sql[m
+[36m@@ -0,0 +1,27 @@[m
+[32m+[m[32m-- crear bd[m
+[32m+[m[32mCREATE DATABASE arrendamiento[m
+[32m+[m
+[32m+[m[32m-- usar bd[m
+[32m+[m[32muse arrendamiento[m
+[32m+[m
+[32m+[m[32m-- crear tabla propiedad[m
+[32m+[m[32mCREATE TABLE propiedad([m
+[32m+[m	[32mcodigoPropiedad INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,[m
+[32m+[m	[32mtipo NVARCHAR(20),[m
+[32m+[m	[32mdireccion NVARCHAR(30),[m
+[32m+[m	[32mciudad NVARCHAR(30),[m
+[32m+[m	[32mhabitaciones INT,[m
+[32m+[m	[32mservicios INT,[m
+[32m+[m	[32mtipoCocina NVARCHAR(30),[m
+[32m+[m	[32mgarage NVARCHAR(30),[m
+[32m+[m	[32msala INT,[m
+[32m+[m	[32mcomedor INT[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32mINSERT INTO propiedad[m
+[32m+[m[32m(tipo, direccion, ciudad, habitaciones, servicios, tipoCocina, garage, sala, comedor)[m
+[32m+[m[32mVALUES[m
+[32m+[m[32m('apartamento', 'calle 45', 'medellin', 3, 2, 'integral', 'si', 1, 1),[m
+[32m+[m[32m('casa', 'calle 50', 'envigado', 4, 3, 'semi integral', 'no', 2, 1)[m
+[32m+[m
+[32m+[m[32mSELECT * FROM propiedad[m
+[1mdiff --git a/Actividad2.sql b/Actividad2.sql[m
+[1mnew file mode 100644[m
+[1mindex 0000000..da27e33[m
+[1m--- /dev/null[m
+[1m+++ b/Actividad2.sql[m
+[36m@@ -0,0 +1,314 @@[m
+[32m+[m[32mCREATE DATABASE empresa[m
+[32m+[m
+[32m+[m[32muse empresa[m
+[32m+[m
+[32m+[m[32mset dateformat 'ymd'[m
+[32m+[m
+[32m+[m[32m-- Crear tablas[m
+[32m+[m
+[32m+[m[32mCREATE TABLE tblCARgo([m
+[32m+[m	[32mid_Car int PRIMARY KEY NOT NULL,[m
+[32m+[m	[32mstrNombre_Car NVARCHAR(30),[m
+[32m+[m	[32mfltSalario_Car MONEY[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32mCREATE TABLE tblDEPartamentos([m
+[32m+[m	[32mid_DEP NVARCHAR(10) PRIMARY KEY NOT NULL,[m
+[32m+[m	[32mstrNombre_Dep NVARCHAR(20)[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32mCREATE TABLE tblCIUdades([m
+[32m+[m	[32mid_Ciu NVARCHAR(15) PRIMARY KEY NOT NULL,[m
+[32m+[m	[32mstrCodDpto_Ciu NVARCHAR(10) FOREIGN KEY REFERENCES tblDEPartamentos(id_DEP) NOT NULL,[m
+[32m+[m	[32mstrNombre_Ciu NVARCHAR(15)[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32mCREATE TABLE tblEMPleados([m
+[32m+[m	[32mstrNroDoc_Emp NVARCHAR(12) PRIMARY KEY NOT NULL,[m
+[32m+[m	[32mstrNombre_Emp NVARCHAR(30) NOT NULL,[m
+[32m+[m	[32mstrApellido_Emp NVARCHAR(30) NOT NULL,[m
+[32m+[m	[32mdtmFechaNac_Emp NVARCHAR(20) NOT NULL,[m
+[32m+[m	[32mintCargo_Emp INT FOREIGN KEY REFERENCES tblCARgo(id_Car) NOT NULL,[m
+[32m+[m	[32mintCiudad_Emp NVARCHAR(15) FOREIGN KEY REFERENCES tblCIUdades(id_Ciu) NOT NULL,[m
+[32m+[m	[32mstrDireccion_Emp NVARCHAR(25),[m
+[32m+[m	[32mstrTelefono_Emp NVARCHAR(10)[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32m-- Borrar Tablas[m
+[32m+[m
+[32m+[m[32mDROP TABLE tblEMPleados[m
+[32m+[m[32mDROP TABLE tblCARgo[m
+[32m+[m[32mDROP TABLE tblCIUdades[m
+[32m+[m[32mDROP TABLE tblDEPartamentos[m
+[32m+[m
+[32m+[m[32m-- Insertar valores[m
+[32m+[m
+[32m+[m[32mINSERT INTO tblCARgo[m
+[32m+[m[32m(id_Car, strNombre_Car, fltSalario_Car)[m
+[32m+[m[32mVALUES[m
+[32m+[m[32m(7, 'operario', 790),[m
+[32m+[m[32m(9, 'Ayudante', 780),[m
+[32m+[m[32m(11, 'Secretaria Gral', 1100),[m
+[32m+[m[32m(20, 'Gefe Contabilidad', 3900),[m
+[32m+[m[32m(50, 'Gerente General', 7200)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mINSERT INTO tblDEPartamentos[m
+[32m+[m[32m(id_DEP, strNombre_Dep)[m
+[32m+[m[32mVALUES[m
+[32m+[m[32m('Ant', 'Antioquia'),[m
+[32m+[m[32m('Val', 'Valle'),[m
+[32m+[m[32m('Bol', 'Bolivar'),[m
+[32m+[m[32m('Qui', 'Quindio'),[m
+[32m+[m[32m('Nsa', 'Norte Santander'),[m
+[32m+[m[32m('San', 'Santander')[m
+[32m+[m
+[32m+[m
+[32m+[m[32mINSERT INTO tblCIUdades[m
+[32m+[m[32m(Id_Ciu, strCodDpto_Ciu, strNombre_Ciu)[m
+[32m+[m[32mVALUES[m
+[32m+[m[32m('Tulu', 'Val', 'Tulua'),[m
+[32m+[m[32m('Cali', 'Val', 'Cali'),[m
+[32m+[m[32m('Mede', 'Ant', 'Medellin'),[m
+[32m+[m[32m('Gira', 'Ant', 'Girardota'),[m
+[32m+[m[32m('Cucu', 'Nsa', 'Cucuta'),[m
+[32m+[m[32m('Buca', 'San', 'Bucaramanga')[m
+[32m+[m
+[32m+[m
+[32m+[m[32mINSERT INTO tblEMPleados[m
+[32m+[m[32m(strNroDoc_Emp, strNombre_Emp, strApellido_Emp, dtmFechaNac_Emp, intCargo_Emp, intCiudad_Emp, strDireccion_Emp, strTelefono_Emp)[m
+[32m+[m[32mVALUES[m
+[32m+[m[32m('702040','Juan','Molina','1989/01/01',9,'Tulu','Calle15#10-10','3503030'),[m
+[32m+[m[32m('704040','Andres','Perez','1987/03/25',20,'Gira','cra2#120-125','2802030'),[m
+[32m+[m[32m('706020','Marina','Carrillo','1980/02/28',7,'Cali','cra2SUR#1D-45','3416090'),[m
+[32m+[m[32m('7068030','Rogelio','Cabrales','1970/05/15',50,'Tulu','AutopistaSurkmt-25', NULL),[m
+[32m+[m[32m('705030','Diana','Moncada','1985/01/15',20,'Mede','Diagonal25#14-29','2501030'),[m
+[32m+[m[32m('703050','Carlos','Carrillo','1988/12/31',11,'Mede','Circular15#102-32', NULL)[m
+[32m+[m
+[32m+[m[32m-- CONSULTAS[m
+[32m+[m[32m-- 1 OK[m
+[32m+[m[32mSELECT * FROM tblDEPartamentos[m
+[32m+[m[32mSELECT * FROM tblCIUdades[m
+[32m+[m[32mSELECT * FROM tblEMPleados[m
+[32m+[m[32mSELECT * FROM tblCARgo[m
+[32m+[m
+[32m+[m[32m-- 2 OK[m
+[32m+[m[32mSELECT * FROM tblEMPleados ORDER BY intCargo_Emp[m
+[32m+[m
+[32m+[m[32m-- 3 OK[m
+[32m+[m[32mSELECT * FROM tblEMPleados[m
+[32m+[m[32mWHERE (intCargo_Emp = 11) OR (intCargo_Emp = 50)[m
+[32m+[m
+[32m+[m[32m-- 4 OK[m
+[32m+[m[32mSELECT * FROM tblEMPleados[m
+[32m+[m[32mWHERE (strApellido_Emp = 'Carrillo') and (intCiudad_Emp = 'Cali')[m
+[32m+[m
+[32m+[m[32m-- 5 OK[m
+[32m+[m[32mSELECT * FROM tblEMPleados[m
+[32m+[m[32mWHERE (intCargo_Emp = 20) AND (intCiudad_Emp = 'Mede')[m
+[32m+[m
+[32m+[m[32m-- 6 OK[m
+[32m+[m[32mSELECT strNombre_Emp, strApellido_Emp, dtmFechaNac_Emp, strNroDoc_Emp FROM tblEMPleados[m
+[32m+[m
+[32m+[m[32m-- 7 OK[m
+[32m+[m[32mSELECT * FROM  tblEMPleados[m
+[32m+[m[32mWHERE strApellido_Emp LIKE 'M%'[m
+[32m+[m
+[32m+[m[32m-- 8 OK[m
+[32m+[m
+[32m+[m[32mSELECT * FROM tblEMPleados[m
+[32m+[m[32mWHERE intCiudad_Emp = 'Mede' OR intCiudad_Emp = 'Cali' OR intCiudad_Emp = 'Tulu'[m
+[32m+[m
+[32m+[m[32m-- 9 OK[m
+[32m+[m
+[32m+[m[32mSELECT * FROM tblEMPleados[m
+[32m+[m[32mWHERE intCargo_Emp = 20 OR intCargo_Emp = 50[m
+[32m+[m
+[32m+[m[32m-- 10 OK[m
+[32m+[m
+[32m+[m[32mSELECT * FROM tblCARgo[m
+[32m+[m[32mWHERE fltSalario_Car > 2000[m
+[32m+[m
+[32m+[m[32m-- 11 OK[m
+[32m+[m
+[32m+[m[32mSELECT * FROM tblDEPartamentos[m
+[32m+[m[32mWHERE strNombre_Dep LIKE '%[Ut]%'[m
+[32m+[m
+[32m+[m[32m-- 12 OK[m
+[32m+[m
+[32m+[m[32mSELECT * FROM tblDEPartamentos[m
+[32m+[m[32mWHERE strNombre_Dep LIKE '%[a]%' AND  strNombre_Dep LIKE '%[c]%'[m
+[32m+[m
+[32m+[m[32m-- 13 OK[m
+[32m+[m
+[32m+[m[32mSELECT * FROM tblCARgo[m
+[32m+[m[32mWHERE fltSalario_Car BETWEEN 2000 AND 5000[m
+[32m+[m
+[32m+[m[32m-- 14 OK[m
+[32m+[m
+[32m+[m[32mSELECT * FROM tblEMPleados[m
+[32m+[m[32mWHERE dtmFechaNac_Emp BETWEEN '19830101' AND '19881231'[m
+[32m+[m
+[32m+[m
+[32m+[m[32m-- 15 OK[m
+[32m+[m
+[32m+[m[32mINSERT INTO tblCARgo[m
+[32m+[m[32m(id_Car, strNombre_Car, fltSalario_Car)[m
+[32m+[m[32mVALUES[m
+[32m+[m[32m(60, 'Mensajero', 850),[m
+[32m+[m[32m(40, 'Jefe de sistemas', 3850)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m-- 16 OK[m
+[32m+[m
+[32m+[m[32mSELECT TOP 1 * FROM tblEMPleados[m
+[32m+[m[32mORDER BY dtmFechaNac_Emp DESC[m
+[32m+[m
+[32m+[m[32m-- 17 OK[m
+[32m+[m
+[32m+[m[32mSELECT TOP 2 * FROM tblDEPartamentos[m
+[32m+[m[32mORDER BY strNombre_Dep ASC[m
+[32m+[m
+[32m+[m[32m-- 18[m
+[32m+[m
+[32m+[m[32mINSERT INTO tblCIUdades[m
+[32m+[m[32m(Id_Ciu, strCodDpto_Ciu, strNombre_Ciu)[m
+[32m+[m[32mVALUES[m
+[32m+[m[32m('Envi', 'Ant', 'Envigado'),[m
+[32m+[m[32m('Tur', 'Bol', 'Turbaco'),[m
+[32m+[m[32m('Arm', 'Qui', 'Armenia')[m
+[32m+[m
+[32m+[m[32m-- 19 OK[m[41m	[m
+[32m+[m
+[32m+[m[32mINSERT INTO tblEMPleados[m
+[32m+[m[32m(strNroDoc_Emp, strNombre_Emp, strApellido_Emp, dtmFechaNac_Emp, intCargo_Emp, intCiudad_Emp, strDireccion_Emp, strTelefono_Emp)[m
+[32m+[m[32mVALUES[m
+[32m+[m[32m('98005005', 'Juan Camilo', 'Torres Marin', '1978/03/25', 60, 'Envi', 'Calle nro. 15sur-25', '277 15 60'),[m
+[32m+[m[32m('32800900', 'Maria Antonia', 'Acevedo Gardeazabal', '1972/04/15', 40, 'Tur', 'Av 2 Nro 68 Norte 4', '520 20 20'),[m
+[32m+[m[32m('150300600', 'Juan', 'Martelo', '1988/02/28', 20, 'Tulu', 'Transv 1# 85-20', '123 10 20')[m
+[32m+[m
+[32m+[m
+[32m+[m[32m-- 20 OK[m
+[32m+[m[32m-- Juan Camilo Torres Marin[m
+[32m+[m[32mUPDATE tblEMPleados[m
+[32m+[m[32mSET intCargo_Emp = 40, strDireccion_Emp = 'calle 84 d nro 123- 2', strTelefono_Emp = '444 41 41'[m
+[32m+[m[32mWHERE strNroDoc_Emp = '98005005'[m
+[32m+[m
+[32m+[m[32m-- Maria Acevedo[m
+[32m+[m[32mUPDATE tblEMPleados[m
+[32m+[m[32mSET intCargo_Emp = 20, strDireccion_Emp = 'calle 21 e nro 145 - 32', strTelefono_Emp = '524 00 00'[m
+[32m+[m[32mWHERE strNroDoc_Emp = '32800900'[m
+[32m+[m
+[32m+[m
+[32m+[m[32m-- Juan Martelo[m
+[32m+[m[32mUPDATE tblEMPleados[m
+[32m+[m[32mSET intCargo_Emp = 60, strDireccion_Emp = 'calle 89 a nro 101 - 06', strTelefono_Emp = ' 210 03 02'[m
+[32m+[m[32mWHERE strNroDoc_Emp = '150300600'[m[41m [m
+[32m+[m
+[32m+[m[32m-- 21 OK[m
+[32m+[m
+[32m+[m[32mUPDATE tblCARgo[m
+[32m+[m[32mSET strNombre_Car = 'Mensajero categoria 1'[m
+[32m+[m[32mWHERE id_Car = 60[m
+[32m+[m
+[32m+[m[32m-- 22 OK[m
+[32m+[m
+[32m+[m[32mUPDATE tblEMPleados[m
+[32m+[m[32mSET strTelefono_Emp = '3598978'[m
+[32m+[m[32mWHERE strNroDoc_Emp = '704040'[m
+[32m+[m
+[32m+[m[32m-- 23 OK[m
+[32m+[m
+[32m+[m[32mUPDATE tblCARgo[m
+[32m+[m[32mSET fltSalario_Car = 2500[m
+[32m+[m[32mWHERE id_Car BETWEEN 20 AND 30[m
+[32m+[m
+[32m+[m[32m-- 24  OK[m
+[32m+[m
+[32m+[m[32mALTER TABLE tblCIUdades ADD intCod_Postal_CIU INT[m
+[32m+[m
+[32m+[m[32mUPDATE tblCIUdades[m
+[32m+[m[32mSET intCod_Postal_CIU = 0[m
+[32m+[m
+[32m+[m[32mALTER TABLE tblCIUdades CHANGE intCod_Postal_CIU intCod_Postal_CIU INT NOT NULL[m
+[32m+[m
+[32m+[m[32m-- 25[m[41m [m
+[32m+[m
+[32m+[m[32mUPDATE tblCIUdades[m
+[32m+[m[32mSET intCod_Postal_CIU = 760001[m
+[32m+[m[32mWHERE id_Ciu = 'Cali'[m
+[32m+[m
+[32m+[m[32mUPDATE tblCIUdades[m
+[32m+[m[32mSET intCod_Postal_CIU = 540001[m
+[32m+[m[32mWHERE id_Ciu = 'Cucu'[m
+[32m+[m
+[32m+[m[32mUPDATE tblCIUdades[m
+[32m+[m[32mSET intCod_Postal_CIU = 055420[m
+[32m+[m[32mWHERE id_Ciu = 'Envi'[m
+[32m+[m
+[32m+[m[32mUPDATE tblCIUdades[m
+[32m+[m[32mSET intCod_Postal_CIU = 051030[m
+[32m+[m[32mWHERE id_Ciu = 'Gira'[m
+[32m+[m
+[32m+[m[32mUPDATE tblCIUdades[m
+[32m+[m[32mSET intCod_Postal_CIU = 050001[m
+[32m+[m[32mWHERE id_Ciu = 'Mede'[m
+[32m+[m
+[32m+[m[32mUPDATE tblCIUdades[m
+[32m+[m[32mSET intCod_Postal_CIU = 055860[m
+[32m+[m[32mWHERE id_Ciu = 'Arm'[m
+[32m+[m
+[32m+[m[32mUPDATE tblCIUdades[m
+[32m+[m[32mSET intCod_Postal_CIU = 680001[m
+[32m+[m[32mWHERE id_Ciu = 'Buca'[m
+[32m+[m
+[32m+[m[32mUPDATE tblCIUdades[m
+[32m+[m[32mSET intCod_Postal_CIU = 763021[m
+[32m+[m[32mWHERE id_Ciu = 'Tulu'[m
+[32m+[m
+[32m+[m[32mUPDATE tblCIUdades[m
+[32m+[m[32mSET intCod_Postal_CIU = 131001[m
+[32m+[m[32mWHERE id_Ciu = 'Tur'[m
+[32m+[m
+[32m+[m[32m-- 26 OK[m
+[32m+[m
+[32m+[m[32mSELECT * FROM tblEMPleados[m
+[32m+[m[32mWHERE intCiudad_Emp IN[m[41m [m
+[32m+[m[32m([m
+[32m+[m	[32mSELECT id_Ciu FROM tblCIUdades[m
+[32m+[m	[32mWHERE strCodDpto_Ciu IN[m
+[32m+[m	[32m([m
+[32m+[m		[32mSELECT id_DEP FROM tblDEPartamentos[m
+[32m+[m		[32mWHERE strNombre_Dep = 'Antioquia'[m
+[32m+[m	[32m)[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m-- 27 OK[m
+[32m+[m
+[32m+[m[32mSELECT * FROM tblEMPleados[m
+[32m+[m[32mWHERE MONTH(dtmFechaNac_Emp) >= 1 AND MONTH(dtmFechaNac_Emp) <= 6[m
+[32m+[m
+[32m+[m[32m-- 28 OK[m
+[32m+[m
+[32m+[m[32mSELECT * FROM tblEMPleados[m
+[32m+[m[32mWHERE intCargo_Emp BETWEEN 5 AND 20[m
+[32m+[m
+[32m+[m[32m-- 29 OK[m
+[32m+[m
+[32m+[m[32mSELECT DISTINCT strNombre_Emp FROM tblEMPleados[m
+[32m+[m
+[32m+[m[32m-- 30 OK[m
+[32m+[m
+[32m+[m[32mSELECT * FROM tblCIUdades[m
+[32m+[m[32mWHERE strNombre_Ciu LIKE '%G%'[m
+[32m+[m
+[32m+[m[32m-- 31 OK[m
+[32m+[m
+[32m+[m[32mDELETE FROM tblCIUdades[m
+[32m+[m[32mWHERE Id_Ciu = 'Cucu'[m
+[32m+[m
+[32m+[m[32mDELETE FROM tblCIUdades[m
+[32m+[m[32mWHERE Id_Ciu = 'Buca'[m
+[32m+[m
+[32m+[m
+[1mdiff --git a/Actividad3.sql b/Actividad3.sql[m
+[1mnew file mode 100644[m
+[1mindex 0000000..809509c[m
+[1m--- /dev/null[m
+[1m+++ b/Actividad3.sql[m
+[36m@@ -0,0 +1,161 @@[m
+[32m+[m[32mCREATE DATABASE datosatv3[m
+[32m+[m
+[32m+[m[32mUSE datosatv3[m
+[32m+[m
+[32m+[m[32mCREATE TABLE numeros ([m
+[32m+[m	[32mid_Num INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,[m
+[32m+[m	[32mdato FLOAT,[m
+[32m+[m	[32mdato2 FLOAT[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32mDROP TABLE numeros[m
+[32m+[m
+[32m+[m[32mSELECT * FROM numeros[m
+[32m+[m
+[32m+[m[32mINSERT INTO numeros[m
+[32m+[m[32m(dato, dato2)[m
+[32m+[m[32mVALUES[m
+[32m+[m[32m(1, 13),[m
+[32m+[m[32m(45, 2),[m
+[32m+[m[32m(23, 4),[m
+[32m+[m[32m(12, 5),[m
+[32m+[m[32m(3, 9),[m
+[32m+[m[32m(12, 1),[m
+[32m+[m[32m(2, 2)[m
+[32m+[m
+[32m+[m[32mCREATE TABLE ventas ([m
+[32m+[m	[32mid_venta INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,[m
+[32m+[m	[32mcod_Vendedor NVARCHAR(15) NOT NULL,[m
+[32m+[m	[32mprecio_venta MONEY[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32mINSERT INTO ventas[m
+[32m+[m[32m(cod_Vendedor, precio_venta)[m
+[32m+[m[32mVALUES[m
+[32m+[m[32m('10302', 10000),[m
+[32m+[m[32m('10231', 11000000),[m
+[32m+[m[32m('12319', 2120213),[m
+[32m+[m[32m('13123', 21930192),[m
+[32m+[m[32m('2123', 120872)[m
+[32m+[m
+[32m+[m[32mSELECT * FROM ventas[m
+[32m+[m
+[32m+[m[32m-- 1 OK[m
+[32m+[m
+[32m+[m[32mSELECT dato - dato2 FROM numeros[m
+[32m+[m
+[32m+[m[32m-- 2 OK[m
+[32m+[m
+[32m+[m[32mIF (SELECT dato + dato2 FROM numeros WHERE id_Num = 2) > 25[m
+[32m+[m	[32mSELECT dato * dato2 FROM numeros WHERE id_Num = 2[m
+[32m+[m[32mELSE[m
+[32m+[m	[32mSELECT dato / dato2 FROM numeros WHERE id_Num = 2[m
+[32m+[m
+[32m+[m[32m-- 3 OK[m
+[32m+[m
+[32m+[m[32mCREATE FUNCTION dbo.f_promedio[m
+[32m+[m[32m([m
+[32m+[m	[32m@valor1 FLOAT, @valor2 FLOAT, @valor3 FLOAT[m
+[32m+[m[32m)[m
+[32m+[m[32mRETURNS FLOAT[m
+[32m+[m[32mAS[m
+[32m+[m[32mBEGIN[m[41m [m
+[32m+[m	[32mRETURN (@valor1 + @valor2 + @valor3) / 3[m
+[32m+[m[32mEND[m
+[32m+[m
+[32m+[m[32mDROP FUNCTION f_promedio[m
+[32m+[m
+[32m+[m[32mSELECT id_Num, dato, dato2, dbo.f_promedio(id_Num, dato, dato2) AS Promedio[m
+[32m+[m[32mFROM numeros[m
+[32m+[m
+[32m+[m[32m-- 4 OK[m
+[32m+[m
+[32m+[m[32mIF (SELECT precio_venta FROM ventas WHERE id_venta = 2) > 1000000[m
+[32m+[m	[32mSELECT precio_venta * 0.10 AS Porcentaje10 FROM ventas WHERE id_venta = 2[m
+[32m+[m[32mELSE[m
+[32m+[m	[32mSELECT precio_venta * 0.2 AS Porcentaje2 FROM ventas WHERE id_venta = 2[m
+[32m+[m
+[32m+[m
+[32m+[m[32m-- 5 OK[m
+[32m+[m
+[32m+[m[32mDECLARE @LADO INT[m
+[32m+[m[32mSET @LADO = 20[m
+[32m+[m
+[32m+[m[32mSELECT @LADO * @LADO[m
+[32m+[m
+[32m+[m[32m-- 6 OK[m
+[32m+[m
+[32m+[m[32mDECLARE @SALARIO FLOAT[m
+[32m+[m[32mSET @SALARIO = 1000000[m
+[32m+[m
+[32m+[m[32mSELECT @SALARIO * 0.08 AS [Auxilio de transporte][m
+[32m+[m
+[32m+[m[32m-- 7 OK[m
+[32m+[m
+[32m+[m[32mDECLARE @contador INT[m
+[32m+[m[32mSET @contador = 1[m
+[32m+[m
+[32m+[m[32mWHILE(@contador < 11)[m
+[32m+[m[32mBEGIN[m
+[32m+[m	[32mPRINT(@contador)[m
+[32m+[m	[32mSET @contador = @contador + 1[m
+[32m+[m[32mEND[m
+[32m+[m
+[32m+[m[32m-- 8 OK[m
+[32m+[m
+[32m+[m[32mDECLARE @I INT[m
+[32m+[m[32mSET @I = 1[m
+[32m+[m
+[32m+[m[32mWHILE(@I < 21)[m
+[32m+[m[32mBEGIN[m
+[32m+[m	[32mPRINT(@I * 2)[m
+[32m+[m	[32mSET @I = @I +1[m
+[32m+[m[32mEND[m
+[32m+[m
+[32m+[m[32m-- 9 OK[m
+[32m+[m
+[32m+[m[32mDECLARE @BASE FLOAT[m
+[32m+[m[32mSET @BASE = 30[m
+[32m+[m
+[32m+[m[32mDECLARE @ALTURA FLOAT[m
+[32m+[m[32mSET @ALTURA = 45[m
+[32m+[m
+[32m+[m[32mPRINT(@BASE * @ALTURA / 2)[m
+[32m+[m
+[32m+[m[32m-- 10 OK[m[41m [m
+[32m+[m
+[32m+[m[32mDECLARE @NOTA1 FLOAT[m
+[32m+[m[32mSET @NOTA1 = 5[m
+[32m+[m
+[32m+[m[32mDECLARE @NOTA2 FLOAT[m
+[32m+[m[32mSET @NOTA2 = 3[m
+[32m+[m
+[32m+[m[32mDECLARE @NOTA3 FLOAT[m
+[32m+[m[32mSET @NOTA3 = 3[m
+[32m+[m
+[32m+[m[32mDECLARE @NOTA4 FLOAT[m
+[32m+[m[32mSET @NOTA4 = 3[m
+[32m+[m
+[32m+[m[32mDECLARE @PROM FLOAT[m
+[32m+[m[32mSET @PROM = (@NOTA1 + @NOTA2 + @NOTA3 + @NOTA4) / 4[m
+[32m+[m
+[32m+[m[32mPRINT(@PROM)[m
+[32m+[m
+[32m+[m[32m-- 11[m
+[32m+[m
+[32m+[m
+[32m+[m[32mCREATE TABLE estudiantes ([m
+[32m+[m	[32mid_est INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,[m
+[32m+[m	[32mnombre NVARCHAR(30),[m
+[32m+[m	[32mnota1 FLOAT,[m
+[32m+[m	[32mnota2 FLOAT[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32mINSERT INTO estudiantes[m
+[32m+[m[32m(nombre, nota1, nota2)[m
+[32m+[m[32mVALUES[m
+[32m+[m[32m('Luis', 5, 4),[m
+[32m+[m[32m('Juan', 1, 2)[m
+[32m+[m
+[32m+[m[32mSELECT * FROM estudiantes[m
+[32m+[m
+[1mdiff --git a/SQLQuery1.sql b/SQLQuery1.sql[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c7883ab[m
+[1m--- /dev/null[m
+[1m+++ b/SQLQuery1.sql[m
+[36m@@ -0,0 +1,27 @@[m
+[32m+[m[32m-- crear base de datos[m
+[32m+[m[32mcreate database prueba[m
+[32m+[m
+[32m+[m[32m-- abrir bd[m
+[32m+[m[32muse prueba[m
+[32m+[m
+[32m+[m[32m-- crear tabla[m
+[32m+[m[32mcreate table personas[m
+[32m+[m[32m([m
+[32m+[m[32miden int primary key,[m
+[32m+[m[32mnom1 nvarchar(30) not null,[m
+[32m+[m[32mnom2 nvarchar(30),[m
+[32m+[m[32mapelli1 nvarchar(30) not null,[m
+[32m+[m[32mapelli2 nvarchar(30),[m
+[32m+[m[32mfecha_nacimiento date not null,[m
+[32m+[m[32msalario money[m
+[32m+[m[32m)[m
+[32m+[m[32m-- consultas[m
+[32m+[m[32mselect * from personas[m
+[32m+[m
+[32m+[m[32m-- insertar[m
+[32m+[m[32minsert into personas[m
+[32m+[m[32m(iden, nom1, nom2, apelli1, apelli2, fecha_nacimiento, salario)[m
+[32m+[m[32mvalues[m
+[32m+[m[32m(1037646018, 'Luis', 'David', 'Moreno', 'Lopera', '29/10/1995', 10000),[m
+[32m+[m[32m(132131, 'Santiago', null, 'Moreno', 'Lopera', '21/01/2005', 2000)[m
+[32m+[m
