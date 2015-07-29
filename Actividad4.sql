@@ -124,29 +124,29 @@ VALUES
 (6,24),
 (6,25)
 
-INSERT INTO Clientes(IdClien,NomClie,IdEmp,LimiteCredito)
+INSERT INTO Clientes(IdClien,NomClie,Apclie,IdEmp,LimiteCredito)
 VALUES
-(2101,'Luis Garcia Antón',106,65000),
-(2102,'Alvaro Rodriguez',101,65000),
-(2103,'Jaime LLorens',105,50000),
-(2105,'Antonio Canales',101,45000),
-(2106,'Juan Suárez',102,65000),
-(2107,'Julian López',110,35000),
-(2108,'Julia Antequera',109,55000),
-(2109,'Alberto Juanes',103,25000),
-(2111,'Cristobal Garcia',103,50000),
-(2112,'Maria Silva',108,50000),
-(2113,'Luisa Maron',104,20000),
-(2114,'Cristina Bulini',102,20000),
-(2115,'Vicente Martinez',101,20000),
-(2117,'Carlos Tena',106,35000),
-(2118,'Junipero Alvarez',108,60000),
-(2119,'Salomon Bueno',109,25000),
-(2120,'Juan Malo',102,50000),
-(2121,'Vicente Rios',103,45000),
-(2122,'Jose Marchante',105,30000),
-(2123,'Jose Libros',102,40000),
-(2124,'Juan Bolto',107,40000)
+(2101,'Luis','Garcia Antón',106,65000),
+(2102,'Alvaro','Rodriguez',101,65000),
+(2103,'Jaime','LLorens',105,50000),
+(2105,'Antonio','Canales',101,45000),
+(2106,'Juan','Suárez',102,65000),
+(2107,'Julian','López',110,35000),
+(2108,'Julia','Antequera',109,55000),
+(2109,'Alberto','Juanes',103,25000),
+(2111,'Cristobal','Garcia',103,50000),
+(2112,'Maria','Silva',108,50000),
+(2113,'Luisa','Maron',104,20000),
+(2114,'Cristina','Bulini',102,20000),
+(2115,'Vicente','Martinez',101,20000),
+(2117,'Carlos','Tena',106,35000),
+(2118,'Junipero','Alvarez',108,60000),
+(2119,'Salomon','Bueno',109,25000),
+(2120,'Juan','Malo',102,50000),
+(2121,'Vicente','Rios',103,45000),
+(2122,'Jose','Marchante',105,30000),
+(2123,'Jose','Libros',102,40000),
+(2124,'Juan','Bolto',107,40000)
 
 INSERT INTO DetallePedido(NumPedido,FechaPedido,idFab,CodProducto,Cantidad,Importe)
 VALUES
